@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Baybella · Media Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+:root{--ink:#3B0764;--ink2:#4C1D7E;--pink:#E5147F;--pink-deep:#BE185D;--purple:#8B5CF6;--lav:#C4B5FD;--coral:#C2410C;--cream:#FFFAF5;--soft:#FCE9F1;--soft2:#F1E7FB;--line:#F1DCE6;--line2:#E9DFF7;--muted:#8B7AAB;--teal:#1D9E75}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+.wrap{max-width:1020px;margin:0 auto;padding:52px 28px 72px}
+.eyebrow{font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--pink);font-weight:600;margin:0 0 14px}
+h1{font-family:'Fraunces',serif;font-weight:600;font-size:44px;line-height:1.05;margin:0 0 12px;color:var(--ink)}
+.lede{font-size:16px;color:var(--ink2);max-width:64ch;margin:0}
+.stamp{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.stamp span{font-size:12px;color:var(--ink2);background:var(--soft2);border:1px solid var(--line2);border-radius:999px;padding:5px 12px}
+.stamp b{color:var(--ink);font-weight:600}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 30px;margin-top:34px}
+h2{font-family:'Fraunces',serif;font-weight:600;font-size:24px;margin:0 0 20px;color:var(--ink)}
+.dials{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px 36px}
+@media(max-width:720px){.dials{grid-template-columns:1fr}}
+.dial .top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.dial .nm{font-size:14px;font-weight:600;color:var(--ink2)}
+.dial .vl{font-family:'Fraunces',serif;font-size:18px;font-weight:600;color:var(--pink-deep)}
+.dial .hint{font-size:12px;color:var(--muted);margin-top:3px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:6px;background:var(--soft2);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--pink);border:3px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--pink);border:3px solid #fff;cursor:pointer}
+.cpapath{margin-top:18px}
+.cptitle{font-size:13px;color:var(--muted);font-weight:600;margin:0 0 8px}
+.cprow{display:flex;gap:8px;flex-wrap:wrap}
+.fccell{flex:1;min-width:96px;border:1px solid var(--line);border-radius:12px;padding:9px 10px;background:#fff}
+.fccell .m{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px}
+.fcin{display:flex;align-items:baseline;gap:1px}
+.fcin>span{font-family:'Fraunces',serif;font-size:15px;font-weight:600;color:var(--ink)}
+.fcin input{flex:1;min-width:0;border:none;background:transparent;font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--ink);outline:none;padding:0;-moz-appearance:textfield}
+.fcin input::-webkit-outer-spin-button,.fcin input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.fcin.ctr{justify-content:center}.fcin.ctr input{flex:0 0 auto;width:3ch;text-align:center}
+.fccell.edited .fcin input,.fccell.edited .fcin>span{color:var(--pink-deep)}
+.fccell.improving{background:var(--soft);border-color:#F4C0D1}
+.fccell.target{background:var(--soft2);border-color:var(--line2)}
+.fccell.worse{background:#FBEAE3;border-color:#F2D2C2}
+.fccell.improving .fcin input,.fccell.improving .fcin>span{color:var(--pink-deep)}
+.fccell.target .fcin input,.fccell.target .fcin>span{color:var(--purple)}
+.fccell.worse .fcin input,.fccell.worse .fcin>span{color:var(--coral)}
+.gauge{display:flex;align-items:center;gap:12px;border-radius:14px;padding:14px 18px;margin:26px 0 0;font-size:14.5px;font-weight:600;border:1px solid}
+.gauge .dot{width:12px;height:12px;border-radius:50%;flex:none}
+.gauge .gx{font-weight:400;color:inherit;opacity:.85}
+.gauge.g{background:#E8F6EF;border-color:#BFE6D4;color:#15795A}.gauge.g .dot{background:#1D9E75}
+.gauge.a{background:#FFF6E5;border-color:#F2DFAE;color:#9A6B00}.gauge.a .dot{background:#E0A300}
+.gauge.r{background:#FBEAE3;border-color:#F2C2B0;color:#B23A12}.gauge.r .dot{background:#C2410C}
+.read{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 22px}
+@media(max-width:720px){.read{grid-template-columns:1fr 1fr}}
+.rbox{border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.rbox .rk{font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;margin:0 0 5px}
+.rbox .rv{font-family:'Fraunces',serif;font-size:21px;font-weight:600;margin:0;line-height:1.15;color:var(--ink)}
+.chartbox{position:relative;width:100%;height:320px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px}
+th,td{padding:10px 8px;text-align:right}
+th:first-child,td:first-child{text-align:left;font-weight:600}
+thead th{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:2px solid var(--line)}
+tbody td{border-bottom:1px solid var(--line);color:var(--ink2);font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--soft)}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.metrics{grid-template-columns:1fr}}
+.mcard{border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.mcard h3{font-family:'Fraunces',serif;font-size:17px;margin:0 0 10px;color:var(--ink)}
+.mrow{display:flex;justify-content:space-between;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px;gap:10px}
+.mrow:last-of-type{border-bottom:none}
+.mrow .ml{color:var(--muted)}.mrow .mv{color:var(--ink);font-weight:600;text-align:right}
+.mrow.tot .ml,.mrow.tot .mv{color:var(--ink);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Baybella · Media Plan</p>
+  <h1>Your media targets</h1>
+  <p class="lede">Set the plan month by month — <b>ad spend</b> and <b>CPA</b> per month drive the revenue and efficiency you're accountable to. Spend ramps ~20%/mo; past ~$94K, CPA gets harder to hold (that's the saturation you manage with fresh creative).</p>
+  <div class="stamp"><span><b>Baseline:</b> 17 Jun 2026</span><span><b>Run-rate:</b> $70K spend · $44 CPA · 2.09 MER</span><span><b>AOV:</b> $91.99</span></div>
+
+  <div class="panel">
+    <h2>Your levers</h2>
+    <div class="dials">
+      <div class="dial"><div class="top"><span class="nm">Target CPA</span><span class="vl" id="v-cpa">$44</span></div><input type="range" id="cpa" min="20" max="60" step="1" value="44" autocomplete="off"><div class="hint">where you drive CPA to · lands <b><span id="v-eff">$44</span></b> · <b>MER <span id="v-emer">2.09</span></b> at this spend</div></div>
+      <div class="dial"><div class="top"><span class="nm">Recovery speed</span><span class="vl" id="v-rec">by end of Oct</span></div><input type="range" id="rec" min="1" max="8" step="1" value="4" autocomplete="off"><div class="hint">month you reach target CPA</div></div>
+      <div class="dial"><div class="top"><span class="nm">Ad spend (scale)</span><span class="vl" id="v-ad">$70K/mo</span></div><input type="range" id="ad" min="50000" max="150000" step="1000" value="70000" autocomplete="off"><div class="hint">drives revenue → <span id="v-rev">$146K/mo</span></div></div>
+    </div>
+  </div>
+
+  <div class="cpapath">
+    <div class="cptitle">Monthly ad-spend plan <span style="font-weight:400">— editable. Unset months auto-ramp ~20%/mo; type any month to override.</span></div>
+    <div class="cprow" id="adrow"></div>
+  </div>
+
+  <div class="cpapath">
+    <div class="cptitle">Monthly CPA target <span style="font-weight:400">— editable. The CPA you'll run each month; type any month to override.</span></div>
+    <div class="cprow" id="cprow"></div>
+  </div>
+
+  <div class="cpapath">
+    <div class="cptitle">Monthly operating overhead <span style="font-weight:400">— editable. Trim it month-by-month; whatever you set for the last month carries on.</span></div>
+    <div class="cprow" id="fcrow"></div>
+  </div>
+
+  <div class="gauge g" id="gauge"><span class="dot"></span><span id="gauge-t">Fundable</span><span class="gx" id="gauge-x"></span></div>
+
+  <div class="read">
+    <div class="rbox"><p class="rk">Effective CPA (steady)</p><p class="rv" id="r-cpa">—</p></div>
+    <div class="rbox"><p class="rk">MER (steady)</p><p class="rv" id="r-mer">—</p></div>
+    <div class="rbox"><p class="rk">Net profit / mo (steady)</p><p class="rv" id="r-rev">—</p></div>
+    <div class="rbox"><p class="rk">Cumulative net profit · Jun–Jan</p><p class="rv" id="r-tot">—</p></div>
+  </div>
+
+  <div class="panel" style="padding-top:22px">
+    <div class="chartbox"><canvas id="chart"></canvas></div>
+  </div>
+
+  <div class="panel" style="padding:18px 26px 22px">
+    <h2 style="margin-bottom:14px">Month by month</h2>
+    <table id="mtbl"><thead><tr><th>Month</th><th>Ad spend</th><th>Eff. CPA</th><th>Orders</th><th>Net profit</th></tr></thead><tbody></tbody></table>
+  </div>
+
+  <div class="panel">
+    <h2 style="margin-bottom:18px">The numbers behind it</h2>
+    <div class="metrics">
+      <div class="mcard"><h3>Performance basis</h3>
+        <div class="mrow"><span class="ml">AOV</span><span class="mv">$91.99</span></div>
+        <div class="mrow"><span class="ml">Units / order</span><span class="mv">1.77</span></div>
+        <div class="mrow"><span class="ml">Current CPA → MER</span><span class="mv">$44 → 2.09</span></div>
+        <div class="mrow"><span class="ml">July 2025 best month</span><span class="mv">$27.70 CPA · 3.41 MER</span></div>
+        <p class="mrow" style="border:none;color:var(--muted);font-style:italic;font-size:12.5px;display:block">Past ~$94K/mo spend, CPA drifts up ~0.5× the overspend — keep fresh creative flowing to hold efficiency as you scale.</p>
+      </div>
+      <div class="mcard"><h3>Operating overhead / month</h3>
+        <div class="mrow"><span class="ml">Team &amp; contractors</span><span class="mv">$16,900</span></div>
+        <div class="mrow"><span class="ml">UGC Creative Production</span><span class="mv">$5,000</span></div>
+        <div class="mrow"><span class="ml">Software &amp; services</span><span class="mv">$10,000</span></div>
+        <div class="mrow"><span class="ml">Founder salary</span><span class="mv">$6,000</span></div>
+        <div class="mrow"><span class="ml">Ecom Republic <span style="color:var(--muted);font-size:11px;font-weight:400">(at ~$66,550 ad spend)</span></span><span class="mv">~$12,900</span></div>
+        <div class="mrow tot"><span class="ml">Total</span><span class="mv">$50,800</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const AOV=91.99,SPEND0=70000,CPA0=44,FRONTIER=93638,SCALEK=0.50,RAMPUP=1.20,RAMPDN=0.85;
+let adOverrides={},cpaOverrides={};
+const MN=['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'];
+function spendAtMonth(adTarget,m){return adTarget>=SPEND0?Math.min(adTarget,SPEND0*Math.pow(RAMPUP,m)):Math.max(adTarget,SPEND0*Math.pow(RAMPDN,m));}
+function monthSpend(mi,adTarget){return adOverrides[mi]!=null?adOverrides[mi]:spendAtMonth(adTarget,mi);}
+function cpaAtMonth(cpaTarget,recovMo,adTarget,m){const frac=Math.min(1,m/recovMo),s=monthSpend(m,adTarget),pen=1+SCALEK*Math.max(0,(s-FRONTIER)/FRONTIER);return (CPA0+(cpaTarget-CPA0)*frac)*pen;}
+function monthCPA(mi,cpaTarget,recovMo,adTarget){return cpaOverrides[mi]!=null?cpaOverrides[mi]:cpaAtMonth(cpaTarget,recovMo,adTarget,mi);}
+// editable overhead + capacity check (capacity params encoded; never displayed)
+const FIXED0=50800;let fixedOverrides={};
+const _u=0x280/100,_b0=0x27ceb,_l0=0x35611,_pc=0x13880,_fb=0x15a65;
+function _fv(wf,tC,rM,aS){const mi=Math.floor(wf/4.333),aw=monthSpend(mi,aS)/4.333,o=aw/monthCPA(mi,tC,rM,aS);return [o*0.893,o*0.694];}
+function _run(tC,rM,aS){
+  let sF=1309,sS=1698,pF=7400,pS=5400,bal=_b0,lb=_l0,lo=bal,fundWk=null;
+  const pays={0:0x9ddd,2:0x118a},arr={2:[7400,5400]},reW=[];
+  for(let w=0;w<=30;w++){
+    if(arr[w]){sF+=arr[w][0];sS+=arr[w][1];pF-=arr[w][0];pS-=arr[w][1];}
+    const m=w/4.333,mi=Math.floor(m),aw=monthSpend(mi,aS)/4.333;
+    const fk=Math.min(mi,rM),fw=(fixedOverrides[fk]!=null?fixedOverrides[fk]:FIXED0)/4.333;
+    const cp=monthCPA(mi,tC,rM,aS),ow=aw/cp,rev=ow*AOV,vF=ow*0.893,vS=ow*0.694,fa=_fv(Math.min(w+8,30),tC,rM,aS);
+    if(sF/fa[0]<13&&pF<=0){
+      const oF=Math.max(0,Math.round(22*fa[0]-sF-pF)),oS=Math.max(0,Math.round(22*fa[1]-sS-pS)),po=(oF+oS)*_u;
+      pays[w]=(pays[w]||0)+po*0.10;
+      for(let k=1;k<=6;k++)pays[w+k]=(pays[w+k]||0)+po*0.8/6;
+      pays[w+4]=(pays[w+4]||0)+1088;pays[w+8]=(pays[w+8]||0)+po*0.10;
+      arr[w+8]=[oF,oS];pF+=oF;pS+=oS;reW.push(w);
+    }
+    sF=Math.max(0,sF-vF);sS=Math.max(0,sS-vS);
+    const rp=Math.min(rev*0.115,lb);lb-=rp;
+    bal+=(rev-aw-ow*15-fw-rp-rev*0.0359-rev*0.0386)-(pays[w]||0);
+    if(lb<=_fb&&fundWk===null)fundWk=w;
+    if(bal<lo)lo=bal;
+  }
+  return {lo,fundWk,reW};
+}
+function _gauge(tC,rM,aS){
+  const r=_run(tC,rM,aS),adj=r.lo+_pc,g=$('gauge'),t=$('gauge-t'),x=$('gauge-x');
+  let c,tt,xx;
+  if(adj<0){c='r';tt='Over budget';xx='— this plan needs more cash than is available. Scale back spend or improve CPA.';}
+  else if(adj<25000){c='a';tt='Tight';xx='— this plan runs the cash budget close. Little margin for error.';}
+  else{c='g';tt='Fundable';xx='— this plan stays within the cash budget through to funding.';}
+  g.className='gauge '+c;t.textContent=tt;x.textContent=xx;
+}
+function renderFixed(rec){
+  const row=$('fcrow');if(!row)return;row.innerHTML='';
+  for(let m=0;m<=rec;m++){
+    const v=fixedOverrides[m]!=null?fixedOverrides[m]:FIXED0;
+    const cell=document.createElement('div');cell.className='fccell'+(fixedOverrides[m]!=null?' edited':'');
+    cell.innerHTML='<div class="m">'+MN[m]+(m===0?' · now':'')+'</div><div class="fcin ctr"><span>$</span><input type="number" step="1" min="0" data-m="'+m+'" value="'+Math.round(v/1000)+'"><span>K</span></div>';
+    row.appendChild(cell);
+  }
+  row.querySelectorAll('input').forEach(inp=>inp.addEventListener('input',e=>{
+    const mi=+e.target.dataset.m,vk=Math.round(+e.target.value);
+    if(isNaN(vk)||vk===Math.round(FIXED0/1000))delete fixedOverrides[mi];else fixedOverrides[mi]=vk*1000;
+    e.target.closest('.fccell').classList.toggle('edited',fixedOverrides[mi]!=null);
+    compute();
+  }));
+}
+const $=id=>document.getElementById(id);
+const months=['','Jul','Aug','Sep','Oct','Nov','Dec','Jan'];
+function K(v){return '$'+Math.round(v/1000)+'K';}
+
+function renderAdPath(target){
+  const row=$('adrow');if(!row)return;row.innerHTML='';
+  for(let m=0;m<8;m++){
+    const vK=Math.round(monthSpend(m,target)/1000);
+    const cell=document.createElement('div');cell.className='fccell'+(adOverrides[m]!=null?' edited':'');
+    cell.innerHTML='<div class="m">'+MN[m]+(m===0?' · now':'')+'</div><div class="fcin ctr"><span>$</span><input type="number" step="1" min="0" data-m="'+m+'" value="'+vK+'"><span>K</span></div>';
+    row.appendChild(cell);
+  }
+  row.querySelectorAll('input').forEach(inp=>inp.addEventListener('input',e=>{
+    const mi=+e.target.dataset.m,val=Math.round(+e.target.value)*1000,ramp=Math.round(spendAtMonth(+$('ad').value,mi)/1000)*1000;
+    if(isNaN(val)||val===ramp)delete adOverrides[mi];else adOverrides[mi]=val;
+    e.target.closest('.fccell').classList.toggle('edited',adOverrides[mi]!=null);
+    compute();
+  }));
+}
+function renderCPAPath(target,recovMo,ad){
+  const row=$('cprow');if(!row)return;row.innerHTML='';
+  for(let m=0;m<8;m++){
+    const v=Math.round(monthCPA(m,target,recovMo,ad));
+    let cls='fccell'+(cpaOverrides[m]!=null?' edited':'');
+    if(v<CPA0)cls+=(v>target+0.5?' improving':' target');else if(v>CPA0+0.5&&m>0)cls+=' worse';
+    const cell=document.createElement('div');cell.className=cls;
+    cell.innerHTML='<div class="m">'+MN[m]+(m===0?' · now':'')+'</div><div class="fcin ctr"><span>$</span><input type="number" step="1" min="1" data-m="'+m+'" value="'+v+'"></div>';
+    row.appendChild(cell);
+  }
+  row.querySelectorAll('input').forEach(inp=>inp.addEventListener('input',e=>{
+    const mi=+e.target.dataset.m,val=Math.round(+e.target.value),tgt=+$('cpa').value,comp=Math.round(cpaAtMonth(tgt,+$('rec').value,+$('ad').value,mi));
+    if(isNaN(val)||val<1||val===comp)delete cpaOverrides[mi];else cpaOverrides[mi]=val;
+    const dispV=cpaOverrides[mi]!=null?val:comp;
+    let cls='fccell'+(cpaOverrides[mi]!=null?' edited':'');
+    if(dispV<CPA0)cls+=(dispV>tgt+0.5?' improving':' target');else if(dispV>CPA0+0.5&&mi>0)cls+=' worse';
+    e.target.closest('.fccell').className=cls;
+    compute();
+  }));
+}
+function npfmt(v){return (v<0?'-$':'$')+Math.abs(Math.round(v/1000))+'K';}
+function renderTable(rows){
+  const tb=document.querySelector('#mtbl tbody');tb.innerHTML='';
+  rows.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td>'+r.month+(r.re?' <span style="color:#C2410C;font-size:11px;font-weight:700">• reorder</span>':'')+'</td><td>'+K(r.spend)+'</td><td>$'+Math.round(r.cpa)+'</td><td>'+Math.round(r.orders).toLocaleString()+'</td>'
+      +'<td style="color:'+(r.np>=0?'var(--teal)':'var(--coral)')+';font-weight:600">'+(r.np>=0?'+':'')+npfmt(r.np)+'</td>';
+    tb.appendChild(tr);
+  });
+}
+let fundMonth=null,reMonths=[];
+const fundLine={id:'fundLine',afterDatasetsDraw(c){if(fundMonth==null)return;const{ctx,chartArea,scales}=c;const x=scales.x.getPixelForValue(fundMonth);if(x<chartArea.left||x>chartArea.right)return;ctx.save();ctx.strokeStyle='#8B5CF6';ctx.lineWidth=1.5;ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(x,chartArea.top+6);ctx.lineTo(x,chartArea.bottom);ctx.stroke();ctx.setLineDash([]);const l='new funding';ctx.font='700 11px Manrope';const tw=ctx.measureText(l).width,pw=tw+14;let px=Math.max(chartArea.left,Math.min(x-pw/2,chartArea.right-pw));ctx.fillStyle='#8B5CF6';ctx.beginPath();ctx.roundRect(px,chartArea.top,pw,19,9);ctx.fill();ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(l,px+pw/2,chartArea.top+13);ctx.restore();}};
+const chart=new Chart($('chart'),{type:'line',data:{labels:MN,datasets:[{label:'Net profit',data:[],borderColor:'#E5147F',backgroundColor:'#E5147F',borderWidth:3,tension:.15,fill:false,pointRadius:[],pointBackgroundColor:[],pointHoverRadius:6}]},
+  options:{responsive:true,maintainAspectRatio:false,
+  plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'Net profit (cum.) '+npfmt(c.parsed.y*1000)+(reMonths.includes(c.dataIndex)?' · reorder month':'')}}},
+  scales:{y:{ticks:{callback:v=>(v<0?'-$':'$')+Math.abs(v)+'K',color:'#8B7AAB',font:{family:'Manrope',size:12}},grid:{color:c=>c.tick.value===0?'rgba(59,7,100,.55)':'rgba(139,122,171,.13)',lineWidth:c=>c.tick.value===0?1.5:1},title:{display:true,text:'Cumulative net profit',color:'#8B7AAB',font:{family:'Manrope',size:11}}},
+   x:{ticks:{color:'#8B7AAB',font:{family:'Manrope',size:12}},grid:{display:false}}}},plugins:[fundLine]});
+
+function compute(){
+  const cpa=+$('cpa').value,rec=+$('rec').value,ad=+$('ad').value;
+  const r=_run(cpa,rec,ad);
+  fundMonth=r.fundWk!=null?Math.round(r.fundWk/4.333):null;
+  reMonths=[...new Set(r.reW.map(w=>Math.round(w/4.333)))];
+  const rows=[],npArr=[];let cum=0;
+  for(let m=0;m<8;m++){
+    const spend=monthSpend(m,ad),ec=monthCPA(m,cpa,rec,ad),orders=spend/ec,rev=orders*AOV;
+    const opx=fixedOverrides[Math.min(m,rec)]!=null?fixedOverrides[Math.min(m,rec)]:FIXED0;
+    const np=rev-spend-orders*15-opx-rev*0.115-rev*0.0359-rev*0.0386;
+    cum+=np;npArr.push(Math.round(cum/1000));
+    rows.push({month:['June','July','August','September','October','November','December','January'][m],spend,cpa:ec,orders,np,re:reMonths.includes(m)});
+  }
+  chart.data.datasets[0].data=npArr;
+  chart.data.datasets[0].pointRadius=npArr.map((_,m)=>reMonths.includes(m)?6:3);
+  chart.data.datasets[0].pointBackgroundColor=npArr.map((_,m)=>reMonths.includes(m)?'#C2410C':'#E5147F');
+  chart.update();
+  renderTable(rows);
+  const steady=rows[7];
+  $('r-cpa').textContent='$'+Math.round(steady.cpa);
+  $('r-mer').textContent=(AOV/steady.cpa).toFixed(2);
+  $('r-rev').textContent=(steady.np>=0?'+':'')+npfmt(steady.np);
+  $('r-rev').style.color=steady.np>=0?'#1D9E75':'#C2410C';
+  $('r-tot').textContent=(cum>=0?'+':'')+npfmt(cum);
+  $('r-tot').style.color=cum>=0?'#1D9E75':'#C2410C';
+  _gauge(cpa,rec,ad);
+}
+function render(){
+  const cpa=+$('cpa').value,rec=+$('rec').value,ad=+$('ad').value;
+  const penT=1+SCALEK*Math.max(0,(ad-FRONTIER)/FRONTIER),effCpa=cpa*penT;
+  $('v-cpa').textContent='$'+cpa;
+  $('v-eff').textContent='$'+Math.round(effCpa);
+  $('v-eff').style.color=effCpa>cpa+0.5?'#C2410C':'#1D9E75';
+  $('v-emer').textContent=(AOV/effCpa).toFixed(2);
+  $('v-rec').textContent='by end of '+months[rec]+(cpa==CPA0?' (no change)':'');
+  $('v-ad').textContent='$'+Math.round(ad/1000)+'K/mo';
+  $('v-rev').textContent='$'+Math.round(ad*(AOV/effCpa)/1000)+'K/mo';
+  renderAdPath(ad);renderCPAPath(cpa,rec,ad);renderFixed(rec);compute();
+}
+['cpa','rec','ad'].forEach(id=>$(id).addEventListener('input',render));
+function setDefaults(){$('cpa').value=44;$('rec').value=4;$('ad').value=70000;adOverrides={};cpaOverrides={};fixedOverrides={};render();}
+window.addEventListener('pageshow',()=>{setDefaults();setTimeout(setDefaults,80);});
+setDefaults();setTimeout(setDefaults,80);
+</script>
+</body>
+</html>
