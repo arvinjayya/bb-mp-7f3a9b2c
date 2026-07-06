@@ -81,14 +81,14 @@ tbody tr:hover{background:var(--soft)}
   <p class="eyebrow">Baybella · Media Plan</p>
   <h1>Your media targets</h1>
   <p class="lede">Set the plan month by month — <b>ad spend</b> and <b>CPA</b> per month drive the revenue and efficiency you're accountable to. Spend ramps ~20%/mo; past ~$94K, CPA gets harder to hold (that's the saturation you manage with fresh creative).</p>
-  <div class="stamp"><span><b>Baseline:</b> 17 Jun 2026</span><span><b>Run-rate:</b> $70K spend · $44 CPA · 2.09 MER</span><span><b>AOV:</b> $91.90</span></div>
+  <div class="stamp"><span><b>Baseline:</b> 1 Jul 2026</span><span><b>Run-rate:</b> $77.6K spend · $45.69 CPA · 2.01 MER</span><span><b>AOV:</b> $91.90</span><span><b>June (locked):</b> $156,052 rev · $77,634 ads · $45.69 CPA</span></div>
 
   <div class="panel">
     <h2>Your levers</h2>
     <div class="dials">
-      <div class="dial"><div class="top"><span class="nm">Target CPA</span><span class="vl" id="v-cpa">$44</span></div><input type="range" id="cpa" min="20" max="60" step="1" value="44" autocomplete="off"><div class="hint">where you drive CPA to · lands <b><span id="v-eff">$44</span></b> · <b>MER <span id="v-emer">2.09</span></b> at this spend</div></div>
+      <div class="dial"><div class="top"><span class="nm">Target CPA</span><span class="vl" id="v-cpa">$44</span></div><input type="range" id="cpa" min="20" max="60" step="1" value="46" autocomplete="off"><div class="hint">where you drive CPA to · lands <b><span id="v-eff">$44</span></b> · <b>MER <span id="v-emer">2.09</span></b> at this spend</div></div>
       <div class="dial"><div class="top"><span class="nm">Recovery speed</span><span class="vl" id="v-rec">by end of Oct</span></div><input type="range" id="rec" min="1" max="8" step="1" value="4" autocomplete="off"><div class="hint">month you reach target CPA</div></div>
-      <div class="dial"><div class="top"><span class="nm">Ad spend (scale)</span><span class="vl" id="v-ad">$70K/mo</span></div><input type="range" id="ad" min="50000" max="150000" step="1000" value="70000" autocomplete="off"><div class="hint">drives revenue → <span id="v-rev">$146K/mo</span></div></div>
+      <div class="dial"><div class="top"><span class="nm">Ad spend (scale)</span><span class="vl" id="v-ad">$70K/mo</span></div><input type="range" id="ad" min="50000" max="150000" step="1000" value="78000" autocomplete="off"><div class="hint">drives revenue → <span id="v-rev">$146K/mo</span></div></div>
     </div>
   </div>
 
@@ -131,37 +131,32 @@ tbody tr:hover{background:var(--soft)}
       <div class="mcard"><h3>Performance basis</h3>
         <div class="mrow"><span class="ml">AOV</span><span class="mv">$91.90</span></div>
         <div class="mrow"><span class="ml">Units / order</span><span class="mv">1.77</span></div>
-        <div class="mrow"><span class="ml">Current CPA → MER</span><span class="mv">$44 → 2.09</span></div>
+        <div class="mrow"><span class="ml">Current CPA → MER (June actual)</span><span class="mv">$45.69 → 2.01</span></div>
         <div class="mrow"><span class="ml">July 2025 best month</span><span class="mv">$27.70 CPA · 3.41 MER</span></div>
         <p class="mrow" style="border:none;color:var(--muted);font-style:italic;font-size:12.5px;display:block">Past ~$94K/mo spend, CPA drifts up ~0.5× the overspend — keep fresh creative flowing to hold efficiency as you scale.</p>
       </div>
       <div class="mcard"><h3>Operating overhead / month</h3>
-        <div class="mrow"><span class="ml">Team &amp; contractors</span><span class="mv">$16,900</span></div>
-        <div class="mrow"><span class="ml">UGC Creative Production</span><span class="mv">$5,000</span></div>
-        <div class="mrow"><span class="ml">Software &amp; services</span><span class="mv">$10,000</span></div>
-        <div class="mrow"><span class="ml">Founder salary</span><span class="mv">$6,000</span></div>
-        <div class="mrow"><span class="ml">Ecom Republic <span style="color:var(--muted);font-size:11px;font-weight:400">(at ~$66,550 ad spend)</span></span><span class="mv">~$12,900</span></div>
-        <div class="mrow tot"><span class="ml">Total</span><span class="mv">$50,800</span></div>
+        <div class="mrow tot"><span class="ml">Operating overhead <span style="color:var(--muted);font-size:11px;font-weight:400">(June actual)</span></span><span class="mv">$50,600</span></div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-const AOV=91.90,SPEND0=70000,CPA0=44,FRONTIER=93638,SCALEK=0.50,RAMPUP=1.20,RAMPDN=0.85;
+const AOV=91.90,SPEND0=77634,CPA0=45.69,FRONTIER=93638,SCALEK=0.50,RAMPUP=1.20,RAMPDN=0.85;
 let adOverrides={},cpaOverrides={};
-const MN=['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'];
+const MN=['Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb'];
 function spendAtMonth(adTarget,m){return adTarget>=SPEND0?Math.min(adTarget,SPEND0*Math.pow(RAMPUP,m)):Math.max(adTarget,SPEND0*Math.pow(RAMPDN,m));}
 function monthSpend(mi,adTarget){return adOverrides[mi]!=null?adOverrides[mi]:spendAtMonth(adTarget,mi);}
 function cpaAtMonth(cpaTarget,recovMo,adTarget,m){const frac=Math.min(1,m/recovMo),s=monthSpend(m,adTarget),pen=1+SCALEK*Math.max(0,(s-FRONTIER)/FRONTIER);return (CPA0+(cpaTarget-CPA0)*frac)*pen;}
 function monthCPA(mi,cpaTarget,recovMo,adTarget){return cpaOverrides[mi]!=null?cpaOverrides[mi]:cpaAtMonth(cpaTarget,recovMo,adTarget,mi);}
 // editable overhead + capacity check (capacity params encoded; never displayed)
-const FIXED0=50800;let fixedOverrides={};
-const _u=0x280/100,_b0=0x27ceb,_l0=0x35611,_pc=0x13880,_fb=0x15a65;
+const FIXED0=50600;let fixedOverrides={};
+const _u=0x280/100,_b0=0x1cac0,_l0=0x30e7d,_pc=0x13880,_fb=0x15a65;
 function _fv(wf,tC,rM,aS){const mi=Math.floor(wf/4.333),aw=monthSpend(mi,aS)/4.333,o=aw/monthCPA(mi,tC,rM,aS);return [o*0.877,o*0.694];}
 function _run(tC,rM,aS){
-  let sF=1309,sS=1698,pF=7400,pS=5400,bal=_b0,lb=_l0,lo=bal,fundWk=null;
-  const pays={0:0x9ddd,2:0x118a},arr={2:[7400,5400]},reW=[];
+  let sF=8164,sS=6325,pF=0,pS=0,bal=_b0,lb=_l0,lo=bal,fundWk=null;
+  const pays={},arr={},reW=[];
   for(let w=0;w<=30;w++){
     if(arr[w]){sF+=arr[w][0];sS+=arr[w][1];pF-=arr[w][0];pS-=arr[w][1];}
     const m=w/4.333,mi=Math.floor(m),aw=monthSpend(mi,aS)/4.333;
@@ -171,7 +166,7 @@ function _run(tC,rM,aS){
       const oF=Math.max(0,Math.round(22*fa[0]-sF-pF)),oS=Math.max(0,Math.round(22*fa[1]-sS-pS)),po=(oF+oS)*_u;
       pays[w]=(pays[w]||0)+po*0.10;
       for(let k=1;k<=6;k++)pays[w+k]=(pays[w+k]||0)+po*0.8/6;
-      pays[w+4]=(pays[w+4]||0)+1088;pays[w+8]=(pays[w+8]||0)+po*0.10;
+      pays[w+4]=(pays[w+4]||0)+848;pays[w+8]=(pays[w+8]||0)+po*0.10;
       arr[w+8]=[oF,oS];pF+=oF;pS+=oS;reW.push(w);
     }
     sF=Math.max(0,sF-vF);sS=Math.max(0,sS-vS);
@@ -206,7 +201,7 @@ function renderFixed(rec){
   }));
 }
 const $=id=>document.getElementById(id);
-const months=['','Jul','Aug','Sep','Oct','Nov','Dec','Jan'];
+const months=['','Aug','Sep','Oct','Nov','Dec','Jan','Feb'];
 function K(v){return '$'+Math.round(v/1000)+'K';}
 
 function renderAdPath(target){
@@ -273,7 +268,7 @@ function compute(){
     const opx=fixedOverrides[Math.min(m,rec)]!=null?fixedOverrides[Math.min(m,rec)]:FIXED0;
     const np=rev-spend-orders*16.85-opx-rev*0.115-rev*0.0359-rev*0.0452;
     cum+=np;npArr.push(Math.round(cum/1000));
-    rows.push({month:['June','July','August','September','October','November','December','January'][m],spend,cpa:ec,orders,np,re:reMonths.includes(m)});
+    rows.push({month:['July','August','September','October','November','December','January','February'][m],spend,cpa:ec,orders,np,re:reMonths.includes(m)});
   }
   chart.data.datasets[0].data=npArr;
   chart.data.datasets[0].pointRadius=npArr.map((_,m)=>reMonths.includes(m)?6:3);
@@ -296,7 +291,7 @@ function render(){
   $('v-eff').textContent='$'+Math.round(effCpa);
   $('v-eff').style.color=effCpa>cpa+0.5?'#C2410C':'#1D9E75';
   $('v-emer').textContent=(AOV/effCpa).toFixed(2);
-  $('v-rec').textContent='by end of '+months[rec]+(cpa==CPA0?' (no change)':'');
+  $('v-rec').textContent='by end of '+months[rec]+(Math.round(cpa)==Math.round(CPA0)?' (no change)':'');
   $('v-ad').textContent='$'+Math.round(ad/1000)+'K/mo';
   $('v-rev').textContent='$'+Math.round(ad*(AOV/effCpa)/1000)+'K/mo';
   renderAdPath(ad);renderCPAPath(cpa,rec,ad);renderFixed(rec);compute();
