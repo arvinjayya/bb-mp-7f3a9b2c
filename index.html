@@ -81,7 +81,7 @@ tbody tr:hover{background:var(--soft)}
   <p class="eyebrow">Baybella · Media Plan</p>
   <h1>Your media targets</h1>
   <p class="lede">Set the plan month by month — <b>ad spend</b> and <b>CPA</b> per month drive the revenue and efficiency you're accountable to. Spend ramps ~20%/mo; past ~$94K, CPA gets harder to hold (that's the saturation you manage with fresh creative).</p>
-  <div class="stamp"><span><b>Baseline:</b> 17 Jun 2026</span><span><b>Run-rate:</b> $70K spend · $44 CPA · 2.09 MER</span><span><b>AOV:</b> $91.99</span></div>
+  <div class="stamp"><span><b>Baseline:</b> 17 Jun 2026</span><span><b>Run-rate:</b> $70K spend · $44 CPA · 2.09 MER</span><span><b>AOV:</b> $91.90</span></div>
 
   <div class="panel">
     <h2>Your levers</h2>
@@ -129,7 +129,7 @@ tbody tr:hover{background:var(--soft)}
     <h2 style="margin-bottom:18px">The numbers behind it</h2>
     <div class="metrics">
       <div class="mcard"><h3>Performance basis</h3>
-        <div class="mrow"><span class="ml">AOV</span><span class="mv">$91.99</span></div>
+        <div class="mrow"><span class="ml">AOV</span><span class="mv">$91.90</span></div>
         <div class="mrow"><span class="ml">Units / order</span><span class="mv">1.77</span></div>
         <div class="mrow"><span class="ml">Current CPA → MER</span><span class="mv">$44 → 2.09</span></div>
         <div class="mrow"><span class="ml">July 2025 best month</span><span class="mv">$27.70 CPA · 3.41 MER</span></div>
@@ -148,7 +148,7 @@ tbody tr:hover{background:var(--soft)}
 </div>
 
 <script>
-const AOV=91.99,SPEND0=70000,CPA0=44,FRONTIER=93638,SCALEK=0.50,RAMPUP=1.20,RAMPDN=0.85;
+const AOV=91.90,SPEND0=70000,CPA0=44,FRONTIER=93638,SCALEK=0.50,RAMPUP=1.20,RAMPDN=0.85;
 let adOverrides={},cpaOverrides={};
 const MN=['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan'];
 function spendAtMonth(adTarget,m){return adTarget>=SPEND0?Math.min(adTarget,SPEND0*Math.pow(RAMPUP,m)):Math.max(adTarget,SPEND0*Math.pow(RAMPDN,m));}
@@ -158,7 +158,7 @@ function monthCPA(mi,cpaTarget,recovMo,adTarget){return cpaOverrides[mi]!=null?c
 // editable overhead + capacity check (capacity params encoded; never displayed)
 const FIXED0=50800;let fixedOverrides={};
 const _u=0x280/100,_b0=0x27ceb,_l0=0x35611,_pc=0x13880,_fb=0x15a65;
-function _fv(wf,tC,rM,aS){const mi=Math.floor(wf/4.333),aw=monthSpend(mi,aS)/4.333,o=aw/monthCPA(mi,tC,rM,aS);return [o*0.893,o*0.694];}
+function _fv(wf,tC,rM,aS){const mi=Math.floor(wf/4.333),aw=monthSpend(mi,aS)/4.333,o=aw/monthCPA(mi,tC,rM,aS);return [o*0.877,o*0.694];}
 function _run(tC,rM,aS){
   let sF=1309,sS=1698,pF=7400,pS=5400,bal=_b0,lb=_l0,lo=bal,fundWk=null;
   const pays={0:0x9ddd,2:0x118a},arr={2:[7400,5400]},reW=[];
@@ -166,7 +166,7 @@ function _run(tC,rM,aS){
     if(arr[w]){sF+=arr[w][0];sS+=arr[w][1];pF-=arr[w][0];pS-=arr[w][1];}
     const m=w/4.333,mi=Math.floor(m),aw=monthSpend(mi,aS)/4.333;
     const fk=Math.min(mi,rM),fw=(fixedOverrides[fk]!=null?fixedOverrides[fk]:FIXED0)/4.333;
-    const cp=monthCPA(mi,tC,rM,aS),ow=aw/cp,rev=ow*AOV,vF=ow*0.893,vS=ow*0.694,fa=_fv(Math.min(w+8,30),tC,rM,aS);
+    const cp=monthCPA(mi,tC,rM,aS),ow=aw/cp,rev=ow*AOV,vF=ow*0.877,vS=ow*0.694,fa=_fv(Math.min(w+8,30),tC,rM,aS);
     if(sF/fa[0]<13&&pF<=0){
       const oF=Math.max(0,Math.round(22*fa[0]-sF-pF)),oS=Math.max(0,Math.round(22*fa[1]-sS-pS)),po=(oF+oS)*_u;
       pays[w]=(pays[w]||0)+po*0.10;
@@ -176,7 +176,7 @@ function _run(tC,rM,aS){
     }
     sF=Math.max(0,sF-vF);sS=Math.max(0,sS-vS);
     const rp=Math.min(rev*0.115,lb);lb-=rp;
-    bal+=(rev-aw-ow*16.85-fw-rp-rev*0.0359-rev*0.0386)-(pays[w]||0);
+    bal+=(rev-aw-ow*16.85-fw-rp-rev*0.0359-rev*0.0452)-(pays[w]||0);
     if(lb<=_fb&&fundWk===null)fundWk=w;
     if(bal<lo)lo=bal;
   }
@@ -271,7 +271,7 @@ function compute(){
   for(let m=0;m<8;m++){
     const spend=monthSpend(m,ad),ec=monthCPA(m,cpa,rec,ad),orders=spend/ec,rev=orders*AOV;
     const opx=fixedOverrides[Math.min(m,rec)]!=null?fixedOverrides[Math.min(m,rec)]:FIXED0;
-    const np=rev-spend-orders*16.85-opx-rev*0.115-rev*0.0359-rev*0.0386;
+    const np=rev-spend-orders*16.85-opx-rev*0.115-rev*0.0359-rev*0.0452;
     cum+=np;npArr.push(Math.round(cum/1000));
     rows.push({month:['June','July','August','September','October','November','December','January'][m],spend,cpa:ec,orders,np,re:reMonths.includes(m)});
   }
