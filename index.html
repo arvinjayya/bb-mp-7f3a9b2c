@@ -42,6 +42,10 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 .fcin input::-webkit-outer-spin-button,.fcin input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .fcin.ctr{justify-content:center}.fcin.ctr input{flex:0 0 auto;width:3ch;text-align:center}
 .fccell.edited .fcin input,.fccell.edited .fcin>span{color:var(--pink-deep)}
+.fccell.locked{background:repeating-linear-gradient(135deg,#EEE9F3,#EEE9F3 6px,#E7E0F0 6px,#E7E0F0 12px);border-color:#D9CEE8;cursor:not-allowed}
+.fccell.locked .m{color:#9585AD;font-weight:700}
+.fcin .lv{font-family:'Fraunces',serif;font-size:16px;font-weight:600;color:var(--ink)}
+.fccell.locked .lv,.fccell.locked .fcin>span{color:#8B7AAB}
 .fccell.improving{background:var(--soft);border-color:#F4C0D1}
 .fccell.target{background:var(--soft2);border-color:var(--line2)}
 .fccell.worse{background:#FBEAE3;border-color:#F2D2C2}
@@ -186,7 +190,7 @@ function _gauge(tC,rM,aS){
   g.className='gauge '+c;t.textContent=tt;x.textContent=xx;
 }
 function renderFixed(rec){
-  const row=$('fcrow');if(!row)return;row.innerHTML='';
+  const row=$('fcrow');if(!row)return;row.innerHTML='<div class="fccell locked"><div class="m">\uD83D\uDD12 JUN</div><div class="fcin ctr"><span>$</span><span class="lv">51</span><span>K</span></div></div>';
   for(let m=0;m<=rec;m++){
     const v=fixedOverrides[m]!=null?fixedOverrides[m]:baseFixed(m);
     const cell=document.createElement('div');cell.className='fccell'+(fixedOverrides[m]!=null?' edited':'');
@@ -205,7 +209,7 @@ const months=['','Aug','Sep','Oct','Nov','Dec','Jan','Feb'];
 function K(v){return '$'+Math.round(v/1000)+'K';}
 
 function renderAdPath(target){
-  const row=$('adrow');if(!row)return;row.innerHTML='';
+  const row=$('adrow');if(!row)return;row.innerHTML='<div class="fccell locked"><div class="m">\uD83D\uDD12 JUN</div><div class="fcin ctr"><span>$</span><span class="lv">78</span><span>K</span></div></div>';
   for(let m=0;m<8;m++){
     const vK=Math.round(monthSpend(m,target)/1000);
     const cell=document.createElement('div');cell.className='fccell'+(adOverrides[m]!=null?' edited':'');
@@ -220,7 +224,7 @@ function renderAdPath(target){
   }));
 }
 function renderCPAPath(target,recovMo,ad){
-  const row=$('cprow');if(!row)return;row.innerHTML='';
+  const row=$('cprow');if(!row)return;row.innerHTML='<div class="fccell locked"><div class="m">\uD83D\uDD12 JUN</div><div class="fcin ctr"><span>$</span><span class="lv">46</span></div></div>';
   for(let m=0;m<8;m++){
     const v=Math.round(monthCPA(m,target,recovMo,ad));
     let cls='fccell'+(cpaOverrides[m]!=null?' edited':'');
