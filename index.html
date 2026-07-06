@@ -136,7 +136,7 @@ tbody tr:hover{background:var(--soft)}
         <p class="mrow" style="border:none;color:var(--muted);font-style:italic;font-size:12.5px;display:block">Past ~$94K/mo spend, CPA drifts up ~0.5× the overspend — keep fresh creative flowing to hold efficiency as you scale.</p>
       </div>
       <div class="mcard"><h3>Operating overhead / month</h3>
-        <div class="mrow tot"><span class="ml">Operating overhead <span style="color:var(--muted);font-size:11px;font-weight:400">(from July)</span></span><span class="mv">$43,400</span></div>
+        <div class="mrow tot"><span class="ml">Operating overhead</span><span class="mv" style="font-size:15px">$41,011 Jul · $45,011 Aug+</span></div>
       </div>
     </div>
   </div>
@@ -151,7 +151,7 @@ function monthSpend(mi,adTarget){return adOverrides[mi]!=null?adOverrides[mi]:sp
 function cpaAtMonth(cpaTarget,recovMo,adTarget,m){const frac=Math.min(1,m/recovMo),s=monthSpend(m,adTarget),pen=1+SCALEK*Math.max(0,(s-FRONTIER)/FRONTIER);return (CPA0+(cpaTarget-CPA0)*frac)*pen;}
 function monthCPA(mi,cpaTarget,recovMo,adTarget){return cpaOverrides[mi]!=null?cpaOverrides[mi]:cpaAtMonth(cpaTarget,recovMo,adTarget,mi);}
 // editable overhead + capacity check (capacity params encoded; never displayed)
-const FIXED0=43400;let fixedOverrides={};
+const FIXED0=41011;let fixedOverrides={};const _r2=0xfa0,_rf=1;function baseFixed(mi){return FIXED0+(mi>=_rf?_r2:0);}
 const _u=0x280/100,_b0=0x1cac0,_l0=0x30e7d,_pc=0x13880,_fb=0x15a65;
 function _fv(wf,tC,rM,aS){const mi=Math.floor(wf/4.333),aw=monthSpend(mi,aS)/4.333,o=aw/monthCPA(mi,tC,rM,aS);return [o*0.877,o*0.694];}
 function _run(tC,rM,aS){
@@ -160,7 +160,7 @@ function _run(tC,rM,aS){
   for(let w=0;w<=30;w++){
     if(arr[w]){sF+=arr[w][0];sS+=arr[w][1];pF-=arr[w][0];pS-=arr[w][1];}
     const m=w/4.333,mi=Math.floor(m),aw=monthSpend(mi,aS)/4.333;
-    const fk=Math.min(mi,rM),fw=(fixedOverrides[fk]!=null?fixedOverrides[fk]:FIXED0)/4.333;
+    const fk=Math.min(mi,rM),fw=(fixedOverrides[fk]!=null?fixedOverrides[fk]:baseFixed(fk))/4.333;
     const cp=monthCPA(mi,tC,rM,aS),ow=aw/cp,rev=ow*AOV,vF=ow*0.877,vS=ow*0.694,fa=_fv(Math.min(w+8,30),tC,rM,aS);
     if(sF/fa[0]<13&&pF<=0){
       const oF=Math.max(0,Math.round(22*fa[0]-sF-pF)),oS=Math.max(0,Math.round(22*fa[1]-sS-pS)),po=(oF+oS)*_u;
@@ -188,14 +188,14 @@ function _gauge(tC,rM,aS){
 function renderFixed(rec){
   const row=$('fcrow');if(!row)return;row.innerHTML='';
   for(let m=0;m<=rec;m++){
-    const v=fixedOverrides[m]!=null?fixedOverrides[m]:FIXED0;
+    const v=fixedOverrides[m]!=null?fixedOverrides[m]:baseFixed(m);
     const cell=document.createElement('div');cell.className='fccell'+(fixedOverrides[m]!=null?' edited':'');
     cell.innerHTML='<div class="m">'+MN[m]+(m===0?' · now':'')+'</div><div class="fcin ctr"><span>$</span><input type="number" step="1" min="0" data-m="'+m+'" value="'+Math.round(v/1000)+'"><span>K</span></div>';
     row.appendChild(cell);
   }
   row.querySelectorAll('input').forEach(inp=>inp.addEventListener('input',e=>{
     const mi=+e.target.dataset.m,vk=Math.round(+e.target.value);
-    if(isNaN(vk)||vk===Math.round(FIXED0/1000))delete fixedOverrides[mi];else fixedOverrides[mi]=vk*1000;
+    if(isNaN(vk)||vk===Math.round(baseFixed(mi)/1000))delete fixedOverrides[mi];else fixedOverrides[mi]=vk*1000;
     e.target.closest('.fccell').classList.toggle('edited',fixedOverrides[mi]!=null);
     compute();
   }));
@@ -265,7 +265,7 @@ function compute(){
   const rows=[],npArr=[];let cum=0;
   for(let m=0;m<8;m++){
     const spend=monthSpend(m,ad),ec=monthCPA(m,cpa,rec,ad),orders=spend/ec,rev=orders*AOV;
-    const opx=fixedOverrides[Math.min(m,rec)]!=null?fixedOverrides[Math.min(m,rec)]:FIXED0;
+    const opx=fixedOverrides[Math.min(m,rec)]!=null?fixedOverrides[Math.min(m,rec)]:baseFixed(Math.min(m,rec));
     const np=rev-spend-orders*16.85-opx-rev*0.115-rev*0.0359-rev*0.0452;
     cum+=np;npArr.push(Math.round(cum/1000));
     rows.push({month:['July','August','September','October','November','December','January','February'][m],spend,cpa:ec,orders,np,re:reMonths.includes(m)});
