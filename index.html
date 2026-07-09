@@ -140,7 +140,7 @@ tbody tr:hover{background:var(--soft)}
         <p class="mrow" style="border:none;color:var(--muted);font-style:italic;font-size:12.5px;display:block">Past ~$94K/mo spend, CPA drifts up ~0.5× the overspend — keep fresh creative flowing to hold efficiency as you scale.</p>
       </div>
       <div class="mcard"><h3>Operating overhead / month</h3>
-        <div class="mrow tot"><span class="ml">Operating overhead</span><span class="mv" style="font-size:15px">$42,913 Jul · $43,110 Aug+</span></div>
+        <div class="mrow tot"><span class="ml">Operating overhead</span><span class="mv" style="font-size:15px">$42,950 Jul · $43,147 Aug+</span></div>
       </div>
     </div>
   </div>
@@ -155,7 +155,7 @@ function monthSpend(mi,adTarget){return adOverrides[mi]!=null?adOverrides[mi]:sp
 function cpaAtMonth(cpaTarget,recovMo,adTarget,m){const frac=Math.min(1,m/recovMo),s=monthSpend(m,adTarget),pen=1+SCALEK*Math.max(0,(s-FRONTIER)/FRONTIER);return (CPA0+(cpaTarget-CPA0)*frac)*pen;}
 function monthCPA(mi,cpaTarget,recovMo,adTarget){return cpaOverrides[mi]!=null?cpaOverrides[mi]:cpaAtMonth(cpaTarget,recovMo,adTarget,mi);}
 // editable overhead + capacity check (capacity params encoded; never displayed)
-const FIXED0=42913;let fixedOverrides={};const _r2=0xfa0,_rf=1,_j=0xedb;function baseFixed(mi){return FIXED0+(mi>=_rf?_r2-_j:0);}
+const FIXED0=42950;let fixedOverrides={};const _r2=0xfa0,_rf=1,_j=0xedb;function baseFixed(mi){return FIXED0+(mi>=_rf?_r2-_j:0);}
 const _u=0x280/100,_b0=0x1cac0,_l0=0x30e7d,_pc=0x13880,_fb=0x15a65;
 function _fv(wf,tC,rM,aS){const mi=Math.floor(wf/4.333),aw=monthSpend(mi,aS)/4.333,o=aw/monthCPA(mi,tC,rM,aS);return [o*0.877,o*0.694];}
 function _run(tC,rM,aS){
